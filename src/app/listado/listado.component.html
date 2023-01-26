@@ -1,0 +1,102 @@
+<!-- <h1
+  class="w-[50rem] m-auto rounded-lg bg-[#0f172a] p-3 text-white text-3xl lg:text-4xl text-center"
+  style="font-family: 'Dancing Script', cursive, sans-serif"
+>
+  Listado de Cds en venta:
+</h1> -->
+
+<div class="justify-center items-center">
+  <form class="">
+    <div class="relative w-60 mt-10 m-auto">
+      <div class="flex items-center justify-center">
+        <!-- <div
+          class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+        >
+          <svg
+            aria-hidden="true"
+            class="w-5 h-5 text-slate-50 dark:text-slate-50"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </div> -->
+        <input
+          type="text"
+          id="buscador_titulo"
+          class="bg-gray-50 border border-gray-300 text-slate-50 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5 dark:bg-[#0f766e] dark:border-[#0f766e] dark:placeholder-slate-50 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 flex-1 mr-2"
+          placeholder="Buscar por título"
+          (keyup)="filtrarCds()"
+        />
+        <button
+          (click)="limpiarFiltro()"
+          class="flex items-center space-x-1.5 rounded-lg p-2.5 bg-blue-400 text-lg text-center font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80"
+        >
+          LIMPIAR
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="mt-10 grid grid-cols-3 justify-center items-center gap-y-10">
+  <div
+    *ngFor="
+      let c of cdsFiltrados
+        | slice : (currentPage - 1) * itemsPerPage : currentPage * itemsPerPage
+    "
+    class="listado justify-self-center self-center w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-[#0f172a] dark:border-[#0f172a]"
+  >
+    <div class="flex flex-col items-center mb-5">
+      <img
+        class="h-60 w-60 mt-10 mb-3 rounded-full shadow-lg"
+        src="server/imagenes/{{ c.id }}.jpg"
+        alt="..."
+      />
+      <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+        {{ c.artista }}
+      </h5>
+      <span class="text-lg text-gray-500 dark:text-gray-400">{{
+        c.titulo
+      }}</span>
+      <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+        {{ c.precio }} €
+      </h5>
+      <button
+        class="text-teal-500 hover:text-teal-200"
+        (click)="verDetalles(c)"
+      >
+        VER DETALLES
+      </button>
+    </div>
+  </div>
+</div>
+<div
+  class="pagination-container d-flex justify-content-center align-items-center"
+>
+  <div class="pagination text-center">
+    <br />
+    <span>Página {{ currentPage }} de {{ totalPages }}</span>
+    <br />
+    <br />
+    <button
+      *ngIf="currentPage !== 1"
+      (click)="previousPage()"
+      class="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-[#134e4a] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-[#0f766e] dark:hover:bg-[#134e4a] dark:focus:[#134e4a]"
+    >
+      ANTERIOR</button
+    >&nbsp;&nbsp;&nbsp;
+    <button
+      *ngIf="currentPage !== totalPages"
+      (click)="nextPage()"
+      class="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-[#134e4a] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-[#0f766e] dark:hover:bg-[#134e4a] dark:focus:[#134e4a]"
+    >
+      SIGUIENTE
+    </button>
+  </div>
+</div>

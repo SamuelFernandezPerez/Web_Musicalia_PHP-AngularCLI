@@ -1,0 +1,9 @@
+{
+    "/server/":{
+        "target" : "http://localhost:80/tienda_cdsOnline_angular/server",
+        "secure" : false,
+        "logLevel" : "debug",
+        "changeOrigin": true,
+        "pathRewrite": { "^/server":""}
+    }
+}

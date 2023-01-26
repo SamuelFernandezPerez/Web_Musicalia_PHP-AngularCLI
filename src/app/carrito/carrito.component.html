@@ -1,0 +1,102 @@
+<!-- <h1
+  class="mt-auto w-[50rem] m-auto rounded-lg bg-[#0f172a] p-3 my-10 text-white text-3xl lg:text-4xl text-center"
+  style="font-family: 'Dancing Script', cursive, sans-serif"
+>
+  Productos en el carrito:
+</h1>
+<br /> -->
+<div class="">
+  <div class="w-full mt-10">
+    <table class="min-w-max w-[50rem] m-auto table-auto shadow-xl">
+      <thead>
+        <tr class="bg-[#0f766e] text-white uppercase text-sm leading-normal">
+          <th class="text-lg py-3 px-6 text-center">Portada</th>
+          <th class="text-lg py-3 px-6 text-center">Titulo</th>
+          <th class="text-lg py-3 px-6 text-center">Precio/Unidad</th>
+          <th class="text-lg py-3 px-6 text-center">Cantidad</th>
+          <th class="text-lg py-3 px-6 text-center"></th>
+        </tr>
+      </thead>
+      <tbody
+        class="text-[#0f172a] text-sm font-light"
+        *ngFor="
+          let cc of cdsCarrito
+            | slice
+              : (currentPage - 1) * itemsPerPage
+              : currentPage * itemsPerPage
+        "
+      >
+        <tr class="border-b border-[#0f766e] hover:bg-gray-200 bg-white">
+          <td class="px-6 text-center whitespace-nowrap">
+            <img
+              class="h-28 w-28 mt-10 mb-3 rounded-full shadow-lg"
+              src="server/imagenes/{{ cc.cd.id }}.jpg"
+            />
+          </td>
+          <td class="text-lg py-3 px-6 text-center whitespace-nowrap">
+            {{ cc.cd.titulo }}
+          </td>
+          <td class="text-lg py-3 px-6 text-center whitespace-nowrap">
+            {{ cc.cd.precio }} €
+          </td>
+          <td class="text-lg py-3 px-6 text-center whitespace-nowrap">
+            <input
+              type="number"
+              min="1"
+              value="{{ cc.cantidad }}"
+              (input)="onValueChange($event, cc.cd.id)"
+              class=""
+              class="ml-4 w-[3rem]"
+            />
+          </td>
+          <td class="text-lg py-3 px-6 text-left whitespace-nowrap">
+            <a
+              href="#"
+              (click)="eliminarProductoCarrito(cc.cd.id)"
+              class="rounded-lg bg-red-500 p-2 text-white font-bold hover:bg-red-700 enlace_borrar_producto"
+              >Borrar producto</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    class="pagination-container d-flex justify-content-center align-items-center"
+  >
+    <div class="pagination text-center">
+      <br />
+      <span>Página {{ currentPage }} de {{ totalPages }}</span
+      ><br />
+      <br />
+      <button
+        *ngIf="currentPage !== 1"
+        (click)="previousPage()"
+        class="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-[#134e4a] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-[#0f766e] dark:hover:bg-[#134e4a] dark:focus:[#134e4a]"
+      >
+        ANTERIOR</button
+      >&nbsp;&nbsp;&nbsp;
+
+      <button
+        class="inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-[#134e4a] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-[#0f766e] dark:hover:bg-[#134e4a] dark:focus:[#134e4a]"
+        *ngIf="currentPage !== totalPages"
+        (click)="nextPage()"
+      >
+        SIGUIENTE
+      </button>
+    </div>
+  </div>
+  <div style="text-align: center; margin: 30px; font-size: 1.5em">
+    <h1
+      class="mb-5 mt-10 inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-blue-400 rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300"
+    >
+      <button (click)="realizarPedido()">REALIZAR PEDIDO</button>
+    </h1>
+    &nbsp;&nbsp;&nbsp;
+    <h1
+      class="mb-10 mt-10 inline-flex items-center px-4 py-2 text-xl font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none"
+    >
+      <button (click)="vaciarCarrito()">VACIAR CARRITO</button>
+    </h1>
+  </div>
+</div>
